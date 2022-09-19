@@ -8,8 +8,7 @@ public class LongestSubstringWithoutRepeatingCharQ3 {
 
     public static int lengthOfLongestSubstring(String s) {
 
-
-
+        return 0;
 
     }
 
