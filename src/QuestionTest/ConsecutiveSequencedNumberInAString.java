@@ -14,8 +14,6 @@ public class ConsecutiveSequencedNumberInAString {
         int firstNumber = Integer.parseInt(firstCharOfGivenString);
         String newString = firstNumber + "" + (firstNumber+1) + "" + (firstNumber+2);
 
-        if (newString.length() != givenStringLength) return false;
-
         return false;
 
     }

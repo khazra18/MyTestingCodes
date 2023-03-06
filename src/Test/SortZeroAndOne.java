@@ -10,11 +10,11 @@ public class SortZeroAndOne {
         ArrayList<Integer> myList = new ArrayList<>(Arrays.asList(0,1,0,1,0,1,1,1,0,0,1,0,1));
         ArrayList<Integer> sortedList = new ArrayList<>();
 
-        for (int i = 0 ; i < myList.size() ; i++){
-            if (myList.get(i)==0){
-                sortedList.add(0,myList.get(i));
-            }else {
-                sortedList.add(myList.get(i));
+        for (Integer integer : myList) {
+            if (integer == 0) {
+                sortedList.add(0, integer);
+            } else {
+                sortedList.add(integer);
             }
         }
 
