@@ -27,6 +27,8 @@ public class EmployeeStreamDemo {
         employeeList.add(new Employee(266, "Sanvi Pandey", 26, "Female", "Product Development", 2015, 28900.0));
         employeeList.add(new Employee(277, "Anuj Chettiar", 31, "Male", "Product Development", 2012, 35700.0));
 
+
+
         // Query 1 : How many male and female employees are there in the organization?
         method1();
         System.out.println("\n");
@@ -76,6 +78,8 @@ public class EmployeeStreamDemo {
         // Query 15 : Who is the oldest employee in the organization? What is his age
         // and which department he belongs to?
         method15();
+
+        method16();
 
     }
 
@@ -267,6 +271,17 @@ public class EmployeeStreamDemo {
         System.out.println("Age : "+oldestEmployee.getAge());
 
         System.out.println("Department : "+oldestEmployee.getDepartment());
+    }
+
+    public static void method16(){
+            Map<String,Optional<Employee>> mymap = employeeList.stream()
+                    .collect(Collectors.groupingBy(Employee::getDepartment,Collectors.maxBy(Comparator.comparing(Employee::getSalary))));
+
+        employeeList.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).limit(2).skip(1).forEach(System.out::println);
+
+        //employeeList.stream().filter(e -> e.getGender().equalsIgnoreCase("male"))
+        //                .forEach(e-> e.setSalary(e.getSalary()*1.1));
+        //System.out.println("new list = " + employeeList);
     }
 
 }

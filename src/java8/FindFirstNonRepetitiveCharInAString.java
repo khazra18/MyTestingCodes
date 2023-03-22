@@ -1,25 +1,40 @@
 package java8;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class FindFirstNonRepetitiveCharInAString {
 
     public static void main(String[] args) {
 
         //FindFirstNonRepetitiveCharInAString using java 8 stream api
-        System.out.println(getFirstNonRepetitiveCharInAString("Krishanu hazra"));
+        System.out.println(getFirstNonRepetitiveCharInAString("AaBbcCfgg"));
 
         //getFirstNonRepetitiveCharInAStringNotUsingJava8
         System.out.println(getFirstNonRepetitiveCharInAStringNotUsingJava8("Tirthankar das"));
 
     }
 
-    private static char getFirstNonRepetitiveCharInAString(String myString) {
+    private static String getFirstNonRepetitiveCharInAString(String myString) {
 
-        List<String> myList = new ArrayList<>(Arrays.asList(myString.split("")));
-        System.out.println(myList);
+        String temp = myString.replaceAll("\\s","").toLowerCase();
+        System.out.println(temp);
+        List<String> myList = new ArrayList<>(Arrays.asList(temp.split("")));
 
-        return 'A';
+        LinkedHashMap<String,Long> myMap = myList.stream()
+                .collect(Collectors.groupingBy(Function.identity(),LinkedHashMap::new,Collectors.counting()));
+
+        System.out.println(myMap);
+
+        Iterator<Map.Entry<String,Long>> myIterator = myMap.entrySet().stream().iterator();
+        while (myIterator.hasNext()){
+            Map.Entry<String,Long> temp1 = myIterator.next();
+            if (temp1.getValue() == 1)
+                return temp1.getKey();
+        }
+
+        return "There is no non repetitive character";
     }
 
     private static String getFirstNonRepetitiveCharInAStringNotUsingJava8(String myString) {
