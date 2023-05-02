@@ -27,9 +27,7 @@ public class FindFirstNonRepetitiveCharInAString {
 
         System.out.println(myMap);
 
-        Iterator<Map.Entry<String,Long>> myIterator = myMap.entrySet().stream().iterator();
-        while (myIterator.hasNext()){
-            Map.Entry<String,Long> temp1 = myIterator.next();
+        for (Map.Entry<String, Long> temp1 : myMap.entrySet()) {
             if (temp1.getValue() == 1)
                 return temp1.getKey();
         }
