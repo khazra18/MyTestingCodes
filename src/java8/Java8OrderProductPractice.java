@@ -91,6 +91,45 @@ public class Java8OrderProductPractice {
 
     }
 
+    private static void method11(List<User> userList, List<Product> productList, List<Orders> ordersList, List<OrdersProduct> ordersProductList) {
+
+        //Get all the orders and product names ordered by all users into MyCustomClass
+        List<MyCustomClass> result = ordersProductList.stream()
+                // Group orders by user ID
+                .collect(Collectors.groupingBy(op -> ordersList.stream()
+                        .filter(o -> o.getId() == op.getOrderId())
+                        .findFirst()
+                        .orElseThrow(IllegalStateException::new)
+                        .getUserId()))
+                .entrySet().stream()
+                // Convert grouped data into MyCustomClass instances
+                .map(entry -> {
+                    int userId = entry.getKey();
+                    List<String> names = userList.stream()
+                            .filter(user -> user.getId() == userId)
+                            .map(User::getName)
+                            .collect(Collectors.toList());
+
+                    List<Integer> orderIds = entry.getValue().stream()
+                            .map(OrdersProduct::getOrderId)
+                            .distinct()
+                            .collect(Collectors.toList());
+
+                    List<String> productNames = entry.getValue().stream()
+                            .map(op -> productList.stream()
+                                    .filter(p -> p.getId() == op.getProductId())
+                                    .findFirst()
+                                    .orElseThrow(IllegalStateException::new)
+                                    .getName())
+                            .collect(Collectors.toList());
+
+                    return new MyCustomClass(names, orderIds, productNames);
+                })
+                .collect(Collectors.toList());
+
+    }
+
+
     private static void method10(List<User> userList, List<Product> productList, List<Orders> ordersList, List<OrdersProduct> ordersProductList) {
 
         //Find the users who have not placed any orders.
@@ -127,6 +166,7 @@ public class Java8OrderProductPractice {
 
     static void method7(List<User> userList, List<Product> productList, List<Orders> ordersList, List<OrdersProduct> ordersProductList) {
 
+        //Find the most popular product (i.e., the product that has been ordered the most number of times).
         Product product = ordersProductList
                 .stream()
                 .collect(Collectors.groupingBy(OrdersProduct::getProductId, LinkedHashMap::new, Collectors.counting()))
@@ -404,6 +444,55 @@ class OrdersProduct {
         return "OrdersProduct{" +
                 "orderId=" + orderId +
                 ", productId=" + productId +
+                '}';
+    }
+}
+
+class MyCustomClass {
+
+    List<String> names;
+    List<Integer> orderIds;
+    List<String> productNames;
+
+    public MyCustomClass(List<String> names, List<Integer> orderIds, List<String> productNames) {
+        this.names = names;
+        this.orderIds = orderIds;
+        this.productNames = productNames;
+    }
+
+    public MyCustomClass() {
+    }
+
+    public List<String> getNames() {
+        return names;
+    }
+
+    public void setNames(List<String> names) {
+        this.names = names;
+    }
+
+    public List<Integer> getOrderIds() {
+        return orderIds;
+    }
+
+    public void setOrderIds(List<Integer> orderIds) {
+        this.orderIds = orderIds;
+    }
+
+    public List<String> getProductNames() {
+        return productNames;
+    }
+
+    public void setProductNames(List<String> productNames) {
+        this.productNames = productNames;
+    }
+
+    @Override
+    public String toString() {
+        return "MyCustomClass{" +
+                "names=" + names +
+                ", orderIds=" + orderIds +
+                ", productNames=" + productNames +
                 '}';
     }
 }

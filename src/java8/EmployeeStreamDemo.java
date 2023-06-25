@@ -179,7 +179,7 @@ public class EmployeeStreamDemo {
         System.out.println("Query 10 : How many male and female employees are there in the sales and marketing team?");
         Map<String, Long> countMaleFemaleEmployeesInSalesMarketing=
                 employeeList.stream()
-                        .filter(e -> e.getDepartment()=="Sales And Marketing")
+                        .filter(e -> Objects.equals(e.getDepartment(), "Sales And Marketing"))
                         .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
 
         System.out.println(countMaleFemaleEmployeesInSalesMarketing);
