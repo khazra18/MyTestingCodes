@@ -1,39 +1,70 @@
 package Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Test2 {
 
     public static void main(String[] args) {
 
-        String str = "krishanu hazra is a bad boy";
+        List<DemoEmp> empList = new ArrayList<>();
+        empList.add(new DemoEmp("A", 10000));
+        empList.add(new DemoEmp("A", 15000));
+        empList.add(new DemoEmp("A", 20000));
+        empList.add(new DemoEmp("A", 24000));
+        empList.add(new DemoEmp("A", 25000));
 
-        String[] strsplit = str.trim().split("");
+        empList.stream().sorted(Comparator.comparing(DemoEmp::getSalary).reversed()).skip(1).limit(1)
+                .collect(Collectors.toList()).forEach(System.out::println);
 
-        for (String s: strsplit) {
-            System.out.print(s);
+
+        List<String> stringList = new ArrayList<>(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i"));
+        List<String> tempList = new ArrayList<>();
+        for (int i = 0; i < stringList.size(); i++) {
+
+            if (i % 2 == 0)
+                tempList.add(stringList.get(i));
+
         }
-
-        ArrayList<String> listStr = new ArrayList<>(Arrays.asList(strsplit));
-
-        System.out.println("List : " + listStr);
-
-        Map<String,Long> myMap = listStr.stream()
-                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
-
-        System.out.println(myMap);
-
-        myMap.forEach((k,v) -> {
-            if (v > 1){
-                System.out.println(k + " - " + v);
-            }
-        });
-
+        System.out.println(tempList);
     }
 
+}
+
+class DemoEmp {
+
+    private String name;
+    private int salary;
+
+    public DemoEmp() {
+    }
+
+    public DemoEmp(String name, int salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "DemoEmp{" +
+                "name='" + name + '\'' +
+                ", salary=" + salary +
+                '}';
+    }
 }
