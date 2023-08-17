@@ -88,6 +88,25 @@ public class Java8OrderProductPractice {
         //Find the users who have not placed any orders.
         method10(userList, productList, ordersList, ordersProductList);
 
+        //Get all the orders and product names ordered by all users into MyCustomClass
+        //method11(userList, productList, ordersList, ordersProductList);
+
+        //Get all the users name who have ordered more than 3 items in their orders
+        //method12(userList, productList, ordersList, ordersProductList);
+
+    }
+
+    private static void method12(List<User> userList, List<Product> productList, List<Orders> ordersList, List<OrdersProduct> ordersProductList) {
+
+        //Get all the users name who have ordered more than 3 items in their orders
+        List<Integer> collect = ordersProductList.stream()
+                .collect(Collectors.groupingBy(OrdersProduct::getOrderId, Collectors.counting()))
+                .entrySet().stream().filter(i -> i.getValue() > 3).map(Map.Entry::getKey).collect(Collectors.toList());
+
+
+        userList.stream().filter(u-> ordersList.stream()
+                        .anyMatch(o-> collect.stream().anyMatch(c-> c == o.getId() && u.getId() == o.getUserId())))
+                .collect(Collectors.toList()).forEach(System.out::println);
 
     }
 
