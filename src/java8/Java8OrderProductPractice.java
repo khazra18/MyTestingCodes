@@ -86,7 +86,7 @@ public class Java8OrderProductPractice {
         //method9(userList, productList, ordersList, ordersProductList);
 
         //Find the users who have not placed any orders.
-        method10(userList, productList, ordersList, ordersProductList);
+        //method10(userList, productList, ordersList, ordersProductList);
 
         //Get all the orders and product names ordered by all users into MyCustomClass
         //method11(userList, productList, ordersList, ordersProductList);
@@ -94,6 +94,28 @@ public class Java8OrderProductPractice {
         //Get all the users name who have ordered more than 3 items in their orders
         //method12(userList, productList, ordersList, ordersProductList);
 
+        //Get all the products which have been ordered by tirthankar and put it in mycustom class
+        method13(userList, productList, ordersList, ordersProductList);
+
+    }
+
+    private static void method13(List<User> userList, List<Product> productList, List<Orders> ordersList, List<OrdersProduct> ordersProductList) {
+
+        //Get all the products which have been ordered by tirthankar and put it in mycustom class
+
+        String name = "payel";
+        ordersList.stream().filter(ord -> userList.stream().anyMatch(u-> u.getName().equalsIgnoreCase(name) && u.getId() == ord.getUserId()))
+                .map(orders -> {
+
+                    OrderDTO orderDTO = new OrderDTO();
+                    orderDTO.setUserName(name);
+                    orderDTO.setOrderIds(Collections.singletonList(orders.getId()));
+                    orderDTO.setProductNames(productList.stream()
+                            .filter(p-> ordersProductList.stream().anyMatch(orp -> orp.getProductId() == p.getId() && orders.getId() == orp.getOrderId()))
+                            .map(Product::getName).collect(Collectors.toList()));
+
+                    return orderDTO;
+                }).forEach(System.out::println);
     }
 
     private static void method12(List<User> userList, List<Product> productList, List<Orders> ordersList, List<OrdersProduct> ordersProductList) {
@@ -510,6 +532,55 @@ class MyCustomClass {
     public String toString() {
         return "MyCustomClass{" +
                 "names=" + names +
+                ", orderIds=" + orderIds +
+                ", productNames=" + productNames +
+                '}';
+    }
+}
+
+class OrderDTO{
+
+    String userName;
+    List<Integer> orderIds;
+    List<String> productNames;
+
+    public OrderDTO() {
+    }
+
+    public OrderDTO(String userName, List<Integer> orderIds, List<String> productNames) {
+        this.userName = userName;
+        this.orderIds = orderIds;
+        this.productNames = productNames;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public List<Integer> getOrderIds() {
+        return orderIds;
+    }
+
+    public void setOrderIds(List<Integer> orderIds) {
+        this.orderIds = orderIds;
+    }
+
+    public List<String> getProductNames() {
+        return productNames;
+    }
+
+    public void setProductNames(List<String> productNames) {
+        this.productNames = productNames;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDTO{" +
+                "userName='" + userName + '\'' +
                 ", orderIds=" + orderIds +
                 ", productNames=" + productNames +
                 '}';
