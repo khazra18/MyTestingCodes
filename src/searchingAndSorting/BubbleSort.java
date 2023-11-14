@@ -4,7 +4,7 @@ public class BubbleSort {
 
     public static void main(String[] args) {
 
-        int arr[] = new int[]{11,64,5,55,12,43,13,9,33,2};
+        int[] arr = new int[]{11,64,5,55,12,43,13,9,33,2};
         bubbleSortMethod(arr);
 
     }
