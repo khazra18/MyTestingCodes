@@ -273,6 +273,7 @@ public class EmployeeStreamDemo {
         System.out.println("Department : "+oldestEmployee.getDepartment());
     }
 
+    //Get Maximum salary for each department
     public static void method16(){
             Map<String,Optional<Employee>> mymap = employeeList.stream()
                     .collect(Collectors.groupingBy(Employee::getDepartment,Collectors.maxBy(Comparator.comparing(Employee::getSalary))));
