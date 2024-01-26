@@ -104,14 +104,14 @@ public class Java8OrderProductPractice {
         //Get all the products which have been ordered by tirthankar and put it in mycustom class
 
         String name = "payel";
-        ordersList.stream().filter(ord -> userList.stream().anyMatch(u-> u.getName().equalsIgnoreCase(name) && u.getId() == ord.getUserId()))
+        ordersList.stream().filter(ord -> userList.stream().anyMatch(u -> u.getName().equalsIgnoreCase(name) && u.getId() == ord.getUserId()))
                 .map(orders -> {
 
                     OrderDTO orderDTO = new OrderDTO();
                     orderDTO.setUserName(name);
                     orderDTO.setOrderIds(Collections.singletonList(orders.getId()));
                     orderDTO.setProductNames(productList.stream()
-                            .filter(p-> ordersProductList.stream().anyMatch(orp -> orp.getProductId() == p.getId() && orders.getId() == orp.getOrderId()))
+                            .filter(p -> ordersProductList.stream().anyMatch(orp -> orp.getProductId() == p.getId() && orders.getId() == orp.getOrderId()))
                             .map(Product::getName).collect(Collectors.toList()));
 
                     return orderDTO;
@@ -126,8 +126,8 @@ public class Java8OrderProductPractice {
                 .entrySet().stream().filter(i -> i.getValue() > 3).map(Map.Entry::getKey).collect(Collectors.toList());
 
 
-        userList.stream().filter(u-> ordersList.stream()
-                        .anyMatch(o-> collect.stream().anyMatch(c-> c == o.getId() && u.getId() == o.getUserId())))
+        userList.stream().filter(u -> ordersList.stream()
+                        .anyMatch(o -> collect.stream().anyMatch(c -> c == o.getId() && u.getId() == o.getUserId())))
                 .collect(Collectors.toList()).forEach(System.out::println);
 
     }
@@ -282,6 +282,15 @@ public class Java8OrderProductPractice {
                         .anyMatch(o -> o.getProductId() == p.getId()))
                 .count();
         System.out.println("Total distinct product ordered : " + count);
+
+        //Find the total number of products ordered in the ordersList with product names.
+        Map<String, Long> collect = ordersProductList.stream().collect(Collectors.groupingBy(ordersProduct -> productList.stream()
+                .filter(product -> product.getId() == ordersProduct.getProductId())
+                .map(Product::getName)
+                .findFirst().orElse(null), Collectors.counting()));
+
+        collect.entrySet().forEach(System.out::println);
+
 
     }
 
@@ -538,7 +547,7 @@ class MyCustomClass {
     }
 }
 
-class OrderDTO{
+class OrderDTO {
 
     String userName;
     List<Integer> orderIds;
