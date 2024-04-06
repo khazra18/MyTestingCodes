@@ -111,7 +111,7 @@ class EmployeeUpdated{
     }
 }
 
-class EmployeeNew {
+class EmployeeNew{
 
     private int empId;
     private String empName;
