@@ -1,23 +1,22 @@
 package java8;
 
 import java.util.function.*;
-import java.util.stream.IntStream;
 
 public class Java8PredefinedFuncInterfaceExamples {
 
     public static void main(String[] args) {
 
         //Predicate interface
-        Predicate<Employee> myPredicate = e -> e.getName().equalsIgnoreCase("krishanu");
-        System.out.println(myPredicate.test(new Employee(111, "krishanu", 32, "Female", "HR", 2011, 25000.0)));
+        Predicate<EmployeeNew> myPredicate = e -> e.getName().equalsIgnoreCase("krishanu");
+        System.out.println(myPredicate.test(new EmployeeNew(111, "krishanu", 32, "Female", "HR", 2011, 25000.0)));
 
         //Function interface
-        Function<Employee,Integer> myFunction = Employee::getAge;
-        System.out.println(myFunction.apply(new Employee(111, "krishanu", 32, "Female", "HR", 2011, 25000.0)));
+        Function<EmployeeNew,Integer> myFunction = EmployeeNew::getAge;
+        System.out.println(myFunction.apply(new EmployeeNew(111, "krishanu", 32, "Female", "HR", 2011, 25000.0)));
 
         //Consumer Interface
-        Consumer<Employee> myConsumer = System.out::println;
-        myConsumer.accept(new Employee(111, "krishanu", 32, "Female", "HR", 2011, 25000.0));
+        Consumer<EmployeeNew> myConsumer = System.out::println;
+        myConsumer.accept(new EmployeeNew(111, "krishanu", 32, "Female", "HR", 2011, 25000.0));
 
         //Supplier Interface
         Supplier<Integer> mySupplier = () -> 1;

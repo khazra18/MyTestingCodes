@@ -15,14 +15,12 @@ public class LongestSubstringWithoutRepeatingCharQ3 {
         LinkedHashMap<String,Integer> myList = new LinkedHashMap<>();
         List<String> str = Arrays.asList(param.split(""));
         System.out.println(str);
-        int longestSubStringLength = 0;
 
         for (int i = 0 ; i< str.size() ; i++){
 
             if (!myList.containsKey(str.get(i))){
                 myList.put(str.get(i),i);
             }else {
-                longestSubStringLength = i;
                 myList.clear();
             }
 

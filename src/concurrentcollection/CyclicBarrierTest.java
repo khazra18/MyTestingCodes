@@ -6,12 +6,7 @@ public class CyclicBarrierTest {
 
     public static void main(String[] args) {
 
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(3, new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(3, () -> System.out.println("Inside cyclic barrier"));
 
         Thread thread1 = new Thread(new MyThread("Thread1",10000,cyclicBarrier));
         Thread thread2 = new Thread(new MyThread("Thread2",5000,cyclicBarrier));

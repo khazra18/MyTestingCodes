@@ -5,27 +5,27 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class EmployeeStreamDemo {
-    static List<Employee> employeeList = new ArrayList<Employee>();
+    static List<EmployeeNew> employeeList = new ArrayList<EmployeeNew>();
 
     public static void main(String[] args) {
 
-        employeeList.add(new Employee(111, "Jiya Brein", 32, "Female", "HR", 2011, 25000.0));
-        employeeList.add(new Employee(122, "Paul Niksui", 25, "Male", "Sales And Marketing", 2015, 13500.0));
-        employeeList.add(new Employee(133, "Martin Theron", 29, "Male", "Infrastructure", 2012, 18000.0));
-        employeeList.add(new Employee(144, "Murali Gowda", 28, "Male", "Product Development", 2014, 32500.0));
-        employeeList.add(new Employee(155, "Nima Roy", 27, "Female", "HR", 2013, 22700.0));
-        employeeList.add(new Employee(166, "Iqbal Hussain", 43, "Male", "Security And Transport", 2016, 10500.0));
-        employeeList.add(new Employee(177, "Manu Sharma", 35, "Male", "Account And Finance", 2010, 27000.0));
-        employeeList.add(new Employee(188, "Wang Liu", 31, "Male", "Product Development", 2015, 34500.0));
-        employeeList.add(new Employee(199, "Amelia Zoe", 24, "Female", "Sales And Marketing", 2016, 11500.0));
-        employeeList.add(new Employee(200, "Jaden Dough", 38, "Male", "Security And Transport", 2015, 11000.5));
-        employeeList.add(new Employee(211, "Jasna Kaur", 27, "Female", "Infrastructure", 2014, 15700.0));
-        employeeList.add(new Employee(222, "Nitin Joshi", 25, "Male", "Product Development", 2016, 28200.0));
-        employeeList.add(new Employee(233, "Jyothi Reddy", 27, "Female", "Account And Finance", 2013, 21300.0));
-        employeeList.add(new Employee(244, "Nicolus Den", 24, "Male", "Sales And Marketing", 2017, 10700.5));
-        employeeList.add(new Employee(255, "Ali Baig", 23, "Male", "Infrastructure", 2018, 12700.0));
-        employeeList.add(new Employee(266, "Sanvi Pandey", 26, "Female", "Product Development", 2015, 28900.0));
-        employeeList.add(new Employee(277, "Anuj Chettiar", 31, "Male", "Product Development", 2012, 35700.0));
+        employeeList.add(new EmployeeNew(111, "Jiya Brein", 32, "Female", "HR", 2011, 25000.0));
+        employeeList.add(new EmployeeNew(122, "Paul Niksui", 25, "Male", "Sales And Marketing", 2015, 13500.0));
+        employeeList.add(new EmployeeNew(133, "Martin Theron", 29, "Male", "Infrastructure", 2012, 18000.0));
+        employeeList.add(new EmployeeNew(144, "Murali Gowda", 28, "Male", "Product Development", 2014, 32500.0));
+        employeeList.add(new EmployeeNew(155, "Nima Roy", 27, "Female", "HR", 2013, 22700.0));
+        employeeList.add(new EmployeeNew(166, "Iqbal Hussain", 43, "Male", "Security And Transport", 2016, 10500.0));
+        employeeList.add(new EmployeeNew(177, "Manu Sharma", 35, "Male", "Account And Finance", 2010, 27000.0));
+        employeeList.add(new EmployeeNew(188, "Wang Liu", 31, "Male", "Product Development", 2015, 34500.0));
+        employeeList.add(new EmployeeNew(199, "Amelia Zoe", 24, "Female", "Sales And Marketing", 2016, 11500.0));
+        employeeList.add(new EmployeeNew(200, "Jaden Dough", 38, "Male", "Security And Transport", 2015, 11000.5));
+        employeeList.add(new EmployeeNew(211, "Jasna Kaur", 27, "Female", "Infrastructure", 2014, 15700.0));
+        employeeList.add(new EmployeeNew(222, "Nitin Joshi", 25, "Male", "Product Development", 2016, 28200.0));
+        employeeList.add(new EmployeeNew(233, "Jyothi Reddy", 27, "Female", "Account And Finance", 2013, 21300.0));
+        employeeList.add(new EmployeeNew(244, "Nicolus Den", 24, "Male", "Sales And Marketing", 2017, 10700.5));
+        employeeList.add(new EmployeeNew(255, "Ali Baig", 23, "Male", "Infrastructure", 2018, 12700.0));
+        employeeList.add(new EmployeeNew(266, "Sanvi Pandey", 26, "Female", "Product Development", 2015, 28900.0));
+        employeeList.add(new EmployeeNew(277, "Anuj Chettiar", 31, "Male", "Product Development", 2012, 35700.0));
 
 
 
@@ -86,38 +86,38 @@ public class EmployeeStreamDemo {
     public static void method1() {
         System.out.println("Query 1 : How many male and female employees are there in the organization?");
         Map<String, Long> noOfMaleAndFemaleEmployees = employeeList.stream()
-                .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
+                .collect(Collectors.groupingBy(EmployeeNew::getGender, Collectors.counting()));
         System.out.println(noOfMaleAndFemaleEmployees);
     }
 
     public static void method2() {
         System.out.println("Query 2 : Print the name of all departments in the organization?");
-        employeeList.stream().map(Employee::getDepartment).distinct().forEach(System.out::println);
+        employeeList.stream().map(EmployeeNew::getDepartment).distinct().forEach(System.out::println);
     }
 
     public static void method3() {
         System.out.println("Query 3 : What is the average age of male and female employees?");
         Map<String, Double> averageAgeOfMaleAndFemaleEmployee = employeeList.stream()
-                .collect(Collectors.groupingBy(Employee::getGender, Collectors.averagingInt(Employee::getAge)));
+                .collect(Collectors.groupingBy(EmployeeNew::getGender, Collectors.averagingInt(EmployeeNew::getAge)));
         System.out.println(averageAgeOfMaleAndFemaleEmployee);
     }
 
     public static void method4() {
         System.out.println("Query 4 : Get the details of highest paid employee in the organization?");
-        Optional<Employee> highestPaidEmployeeWrapper = employeeList.stream().max(Comparator.comparingDouble(Employee::getSalary));
+        Optional<EmployeeNew> highestPaidEmployeeWrapper = employeeList.stream().max(Comparator.comparingDouble(EmployeeNew::getSalary));
         System.out.println(highestPaidEmployeeWrapper.get().getName());
     }
 
     public static void method5() {
         System.out.println("Query 5 : Get the names of all employees who have joined after 2015?");
-        employeeList.stream().filter(e -> e.getYearOfJoining() > 2015).map(Employee::getName)
+        employeeList.stream().filter(e -> e.getYearOfJoining() > 2015).map(EmployeeNew::getName)
                 .forEach(System.out::println);
     }
 
     public static void method6() {
         System.out.println("Query 6 : Count the number of employees in each department?");
         Map<String, Long> employeeCountByDepartment = employeeList.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.counting()));
+                .collect(Collectors.groupingBy(EmployeeNew::getDepartment, Collectors.counting()));
 
         Set<Entry<String, Long>> entrySet = employeeCountByDepartment.entrySet();
 
@@ -129,7 +129,7 @@ public class EmployeeStreamDemo {
     public static void method7() {
         System.out.println("Query 7 : What is the average salary of each department?");
         Map<String, Double> avgSalaryOfDepartments=
-                employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.averagingDouble(Employee::getSalary)));
+                employeeList.stream().collect(Collectors.groupingBy(EmployeeNew::getDepartment, Collectors.averagingDouble(EmployeeNew::getSalary)));
 
         Set<Entry<String, Double>> entrySet = avgSalaryOfDepartments.entrySet();
 
@@ -142,12 +142,12 @@ public class EmployeeStreamDemo {
     public static void method8() {
         System.out
                 .println("Query 8 : Get the details of youngest male employee in the product development department?");
-        Optional<Employee> youngestMaleEmployeeInProductDevelopmentWrapper=
+        Optional<EmployeeNew> youngestMaleEmployeeInProductDevelopmentWrapper=
                 employeeList.stream()
                         .filter(e -> Objects.equals(e.getGender(), "Male") && Objects.equals(e.getDepartment(), "Product Development"))
-                        .min(Comparator.comparingInt(Employee::getAge));
+                        .min(Comparator.comparingInt(EmployeeNew::getAge));
 
-        Employee youngestMaleEmployeeInProductDevelopment = youngestMaleEmployeeInProductDevelopmentWrapper.get();
+        EmployeeNew youngestMaleEmployeeInProductDevelopment = youngestMaleEmployeeInProductDevelopmentWrapper.get();
 
         System.out.println("Details Of Youngest Male Employee In Product Development");
 
@@ -161,10 +161,10 @@ public class EmployeeStreamDemo {
 
     public static void method9() {
         System.out.println("Query 9 : Who has the most working experience in the organization?");
-        Optional<Employee> seniorMostEmployeeWrapper=
-                employeeList.stream().sorted(Comparator.comparingInt(Employee::getYearOfJoining)).findFirst();
+        Optional<EmployeeNew> seniorMostEmployeeWrapper=
+                employeeList.stream().sorted(Comparator.comparingInt(EmployeeNew::getYearOfJoining)).findFirst();
 
-        Employee seniorMostEmployee = seniorMostEmployeeWrapper.get();
+        EmployeeNew seniorMostEmployee = seniorMostEmployeeWrapper.get();
 
         System.out.println("Senior Most Employee Details :");
 
@@ -180,7 +180,7 @@ public class EmployeeStreamDemo {
         Map<String, Long> countMaleFemaleEmployeesInSalesMarketing=
                 employeeList.stream()
                         .filter(e -> Objects.equals(e.getDepartment(), "Sales And Marketing"))
-                        .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
+                        .collect(Collectors.groupingBy(EmployeeNew::getGender, Collectors.counting()));
 
         System.out.println(countMaleFemaleEmployeesInSalesMarketing);
     }
@@ -188,19 +188,19 @@ public class EmployeeStreamDemo {
     public static void method11() {
         System.out.println("Query 11 : What is the average salary of male and female employees?");
         Map<String, Double> avgSalaryOfMaleAndFemaleEmployees=
-                employeeList.stream().collect(Collectors.groupingBy(Employee::getGender, Collectors.averagingDouble(Employee::getSalary)));
+                employeeList.stream().collect(Collectors.groupingBy(EmployeeNew::getGender, Collectors.averagingDouble(EmployeeNew::getSalary)));
 
         System.out.println(avgSalaryOfMaleAndFemaleEmployees);
     }
 
     public static void method12() {
         System.out.println("Query 12 : List down the names of all employees in each department?");
-        Map<String, List<Employee>> employeeListByDepartment=
-                employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment));
+        Map<String, List<EmployeeNew>> employeeListByDepartment=
+                employeeList.stream().collect(Collectors.groupingBy(EmployeeNew::getDepartment));
 
-        Set<Entry<String, List<Employee>>> entrySet = employeeListByDepartment.entrySet();
+        Set<Entry<String, List<EmployeeNew>>> entrySet = employeeListByDepartment.entrySet();
 
-        for (Entry<String, List<Employee>> entry : entrySet)
+        for (Entry<String, List<EmployeeNew>> entry : entrySet)
         {
             System.out.println("--------------------------------------");
 
@@ -208,9 +208,9 @@ public class EmployeeStreamDemo {
 
             System.out.println("--------------------------------------");
 
-            List<Employee> list = entry.getValue();
+            List<EmployeeNew> list = entry.getValue();
 
-            for (Employee e : list)
+            for (EmployeeNew e : list)
             {
                 System.out.println(e.getName());
             }
@@ -220,7 +220,7 @@ public class EmployeeStreamDemo {
     public static void method13() {
         System.out.println("Query 13 : What is the average salary and total salary of the whole organization?");
         DoubleSummaryStatistics employeeSalaryStatistics=
-                employeeList.stream().collect(Collectors.summarizingDouble(Employee::getSalary));
+                employeeList.stream().collect(Collectors.summarizingDouble(EmployeeNew::getSalary));
 
         System.out.println("Average Salary = "+employeeSalaryStatistics.getAverage());
 
@@ -230,12 +230,12 @@ public class EmployeeStreamDemo {
     public static void method14() {
         System.out.println(
                 "Query 14 : Separate the employees who are younger or equal to 25 years from those employees who are older than 25 years.");
-        Map<Boolean, List<Employee>> partitionEmployeesByAge=
+        Map<Boolean, List<EmployeeNew>> partitionEmployeesByAge=
                 employeeList.stream().collect(Collectors.partitioningBy(e -> e.getAge() > 25));
 
-        Set<Entry<Boolean, List<Employee>>> entrySet = partitionEmployeesByAge.entrySet();
+        Set<Entry<Boolean, List<EmployeeNew>>> entrySet = partitionEmployeesByAge.entrySet();
 
-        for (Entry<Boolean, List<Employee>> entry : entrySet)
+        for (Entry<Boolean, List<EmployeeNew>> entry : entrySet)
         {
             System.out.println("----------------------------");
 
@@ -250,9 +250,9 @@ public class EmployeeStreamDemo {
 
             System.out.println("----------------------------");
 
-            List<Employee> list = entry.getValue();
+            List<EmployeeNew> list = entry.getValue();
 
-            for (Employee e : list)
+            for (EmployeeNew e : list)
             {
                 System.out.println(e.getName());
             }
@@ -262,9 +262,9 @@ public class EmployeeStreamDemo {
     public static void method15() {
         System.out.println(
                 "Query 15 : Who is the oldest employee in the organization? What is his age and which department he belongs to?");
-        Optional<Employee> oldestEmployeeWrapper = employeeList.stream().max(Comparator.comparingInt(Employee::getAge));
+        Optional<EmployeeNew> oldestEmployeeWrapper = employeeList.stream().max(Comparator.comparingInt(EmployeeNew::getAge));
 
-        Employee oldestEmployee = oldestEmployeeWrapper.get();
+        EmployeeNew oldestEmployee = oldestEmployeeWrapper.get();
 
         System.out.println("Name : "+oldestEmployee.getName());
 
@@ -275,10 +275,10 @@ public class EmployeeStreamDemo {
 
     //Get Maximum salary for each department
     public static void method16(){
-            Map<String,Optional<Employee>> mymap = employeeList.stream()
-                    .collect(Collectors.groupingBy(Employee::getDepartment,Collectors.maxBy(Comparator.comparing(Employee::getSalary))));
+            Map<String,Optional<EmployeeNew>> mymap = employeeList.stream()
+                    .collect(Collectors.groupingBy(EmployeeNew::getDepartment,Collectors.maxBy(Comparator.comparing(EmployeeNew::getSalary))));
 
-        employeeList.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).limit(2).skip(1).forEach(System.out::println);
+        employeeList.stream().sorted(Comparator.comparing(EmployeeNew::getSalary).reversed()).limit(2).skip(1).forEach(System.out::println);
 
         //employeeList.stream().filter(e -> e.getGender().equalsIgnoreCase("male"))
         //                .forEach(e-> e.setSalary(e.getSalary()*1.1));
