@@ -12,7 +12,7 @@ public class CyclicallyRotateAnArrayByOne {
 
     }
 
-    public static void rotate(int arr[],int n){
+    public static void rotate(int[] arr, int n){
 
         int[] arr1 = new int[n];
         arr1[0] = arr[arr.length-1];
