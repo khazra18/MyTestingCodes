@@ -1,4 +1,4 @@
-package arraycodingpractice;
+package array;
 
 public class FindNumberOfPairsForAnInt {
 

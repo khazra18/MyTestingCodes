@@ -1,4 +1,4 @@
-package arraycodingpractice;
+package array;
 
 import java.util.Arrays;
 
